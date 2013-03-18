@@ -23,7 +23,7 @@ class PollsHookListener < Redmine::Hook::ViewListener
 #           "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>" + 
            "<script>$(function(){ var el = $('#phabricator_audit_info').data('statuses');" +
            "$.each(el, function(key, value){" +
-           "$('a[title=\"Ревизия ' + key.substring(4,12) + '\"]').before('<span class=\"audit_info ' + value + '\"></span>')})});" + 
+           "$('a[href*=\"/revisions/' + key.substring(4,12) + '\"]').before('<span class=\"audit_info ' + value + '\"></span>')})});" + 
 	   "</script>" + 
            "<div id=\"phabricator_audit_info\"style=\"display:none\"data-statuses='#{statuses}'></div>"
   end
