@@ -4,9 +4,9 @@ require_dependency 'phabricator_audits_hook_listener.rb'
 
 Redmine::Plugin.register :redmine_phabricator_audits do
   name 'Redmine Phabricator Audits plugin'
-  author 'Author name'
-  description 'This is a plugin for Redmine'
+  author 'Ilya Lebedev'
+  description 'Phabricator and Redmine integration'
   version '0.0.1'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
+  url 'https://github.com/futurecolors/phabmine'
+  author_url 'https://github.com/melevir'
 end
