@@ -13,7 +13,7 @@ Phabmine is Redmine plugin that integrates wth Phabricator and allows to check i
 ## FAQ
  - __I don't want to clutter up my server with Phabricator Arcanist, PHP, etc. What shoud I do to run Phabmine?__
 
-   The point of item 3 of installation instruction is to get .arcrc file - this is where Phabricator Conduit's certificate stored.
+   The point of step 3 of installation guide is to get `.arcrc` file - this is where Phabricator Conduit's certificate stored.
    You can create the file at any computer and then just copy it to server with Redmine.
  - __Is Phabmine stable? Can I safely use it?__
 
