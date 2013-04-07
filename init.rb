@@ -9,4 +9,6 @@ Redmine::Plugin.register :phabmine do
   version '0.0.1'
   url 'https://github.com/futurecolors/phabmine'
   author_url 'https://github.com/melevir'
+
+  settings :default => {'empty' => true}, :partial => 'phabmine/settings'
 end

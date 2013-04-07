@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag 'statuses', :plugin => 'phabmine' %>
+
+
+<table>
+  <tbody>
+    <tr>
+      <th>
+          Roles to hide Phabricator URL
+          <div class="settings__help-text">(must be valid JSON string)</div>
+      </th>
+      <td><input type="text" id="roles_to_hide_phabricator_url"
+             value="<%= settings['roles_to_hide_phabricator_url'] %>"
+             name="settings[roles_to_hide_phabricator_url]" >
+    </tr>
+    <tr>
+      <th>
+          Redmine->Phabricator project mapping
+          <div class="settings__help-text">(must be valid JSON string)</div>
+      </th>
+      <td><textarea id="redmine_phabricator_project_mapping" rows="5"
+             name="settings[redmine_phabricator_project_mapping]" >
+               <%= settings['redmine_phabricator_project_mapping'] %>
+           </textarea>
+    </tr>
+
+  </tbody>
+</table>

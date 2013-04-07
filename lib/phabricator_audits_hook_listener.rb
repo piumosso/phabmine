@@ -8,7 +8,7 @@ class PollsHookListener < Redmine::Hook::ViewListener
     def get_changesets_statuses(changesets, project_sid)
       # Ask Phabricator for statuses
       if changesets.empty?
-  return {}
+        return {}
       else
         arcrc_path = ENV['PHABMINE_ARCRC_PATH'] || File.expand_path('./plugins/phabmine/.arcrc')
         data = get_commit_status project_sid, changesets, arcrc_path
@@ -27,16 +27,10 @@ class PollsHookListener < Redmine::Hook::ViewListener
       end
     end
 
-    # Plugin settings
-    # TODO: Move settings to plugin configuration page
-    roles_to_hide_phabricator_url = [3, ]  # Manager
-    redmine_phabricator_project_mapping = {
-      "0560ru" => "PAT",
-      "fut2" => "FUT",
-    }
+    roles_to_hide_phabricator_url = JSON.parse Setting.plugin_phabmine['roles_to_hide_phabricator_url']
+    redmine_phabricator_project_mapping = JSON.parse Setting.plugin_phabmine['redmine_phabricator_project_mapping']
 
     issue = Issue.find(context[:issue])
-    user = context[:user]
     user_roles = User.current.roles_for_project(context[:project]).map{|e| e.id}
     show_phabricator_url = (user_roles & roles_to_hide_phabricator_url).empty?
     project_sid = get_phabricator_project_slug(redmine_phabricator_project_mapping, issue.project.identifier)
