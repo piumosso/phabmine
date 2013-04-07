@@ -1,8 +1,8 @@
 require 'redmine'
 
-require_dependency 'phabricator_audits_hook_listener.rb'
+require 'phabricator_audits_hook_listener.rb'
 
-Redmine::Plugin.register :redmine_phabricator_audits do
+Redmine::Plugin.register :phabmine do
   name 'Redmine Phabricator Audits plugin'
   author 'Ilya Lebedev'
   description 'Phabricator and Redmine integration'

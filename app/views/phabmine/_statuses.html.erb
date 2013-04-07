@@ -1,0 +1,21 @@
+<style type="text/css">
+    .in_progress{background-color:gray;}
+    .accepted{background-color:green;}
+    .conserned{background-color:red;}
+    .audit_info{display:inline-block;width:10px;height:10px;border-radius:5px;margin-left:2px;margin-right:5px;}
+</style>
+<script>
+    $(function(){
+        var el = $('#phabricator_audit_info').data('statuses'),
+            reg = /r([A-Z0-9]+)([a-z0-9]{40})/;
+        $.each(el, function(key, value){
+            var $rev_url = $('a[href*=\"/revisions/' + key.replace(reg,'$2') + '\"]');
+            $rev_url.before('<span class=\"audit_info ' + value['status'] + '\"></span>');
+            if(value['url']){
+                $rev_url.attr('href', value['url']).attr('target', 'blank');
+            };
+        })
+    });
+</script>
+
+<div id="phabricator_audit_info" style="display:none" data-statuses='<%= statuses %>'></div>
