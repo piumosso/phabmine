@@ -19,11 +19,7 @@ class PollsHookListener < Redmine::Hook::ViewListener
       return data.to_json
     end
 
-    def get_phabricator_project_slug(redmine_slug)
-      redmine_phabricator_project_mapping = {
-          "0560ru" => "PAT",
-          "fut2" => "FUT",
-      }
+    def get_phabricator_project_slug(redmine_phabricator_project_mapping, redmine_slug)
       if redmine_phabricator_project_mapping.include? redmine_slug
         return redmine_phabricator_project_mapping[redmine_slug]
       else
@@ -31,12 +27,26 @@ class PollsHookListener < Redmine::Hook::ViewListener
       end
     end
 
+    # Plugin settings
+    # TODO: Move settings to plugin configuration page
+    roles_to_hide_phabricator_url = [3, ]  # Manager
+    redmine_phabricator_project_mapping = {
+      "0560ru" => "PAT",
+      "fut2" => "FUT",
+    }
+
     issue = Issue.find(context[:issue])
-    project_sid = get_phabricator_project_slug(issue.project.identifier)
-    statuses = get_changesets_statuses(issue.changesets.map{|c| c.revision}, project_sid)
+    user = context[:user]
+    user_roles = User.current.roles_for_project(context[:project]).map{|e| e.id}
+    show_phabricator_url = (user_roles & roles_to_hide_phabricator_url).empty?
+    project_sid = get_phabricator_project_slug(redmine_phabricator_project_mapping, issue.project.identifier)
+    commits_data = get_changesets_statuses(issue.changesets.map{|c| c.revision}, project_sid)
     context[:controller].send(:render_to_string, {
       :partial => "/phabmine/statuses",
-      :locals => {:statuses => statuses}
+      :locals => {
+        :statuses => commits_data,
+        :show_phabricator_url => show_phabricator_url,
+      }
     })
   end
 end
