@@ -1,0 +1,20 @@
+.in_progress {
+    background-color:gray;
+}
+
+.accepted {
+    background-color:green;
+}
+
+.conserned {
+    background-color:red;
+}
+
+.audit_info {
+    display:inline-block;
+    width:10px;
+    height:10px;
+    border-radius:5px;
+    margin-left:2px;
+    margin-right:5px;
+}
