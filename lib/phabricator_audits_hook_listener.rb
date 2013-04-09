@@ -27,8 +27,28 @@ class PollsHookListener < Redmine::Hook::ViewListener
       end
     end
 
-    roles_to_hide_phabricator_url = JSON.parse Setting.plugin_phabmine['roles_to_hide_phabricator_url']
-    redmine_phabricator_project_mapping = JSON.parse Setting.plugin_phabmine['redmine_phabricator_project_mapping']
+    def get_plugin_settings
+      settings_info = [
+        {'name'=> 'roles_to_hide_phabricator_url', 'default'=> '[]'},
+        {'name'=> 'redmine_phabricator_project_mapping', 'default'=> '{}'},
+      ]
+      settings = {}
+      settings_info.each{|param_info|
+        raw_param_value = Setting.plugin_phabmine[param_info['name']]
+        if raw_param_value.nil? or raw_param_value.empty?
+          param_value = JSON.parse param_info['default']
+        else
+          param_value = JSON.parse raw_param_value
+        end
+        settings[param_info['name']] = param_value
+      }
+      settings.default = ''
+      return settings
+    end
+
+    settings = get_plugin_settings
+    roles_to_hide_phabricator_url = settings['roles_to_hide_phabricator_url']
+    redmine_phabricator_project_mapping = settings['redmine_phabricator_project_mapping']
 
     issue = Issue.find(context[:issue])
     user_roles = User.current.roles_for_project(context[:project]).map{|e| e.id}
