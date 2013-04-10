@@ -24,8 +24,7 @@ Plugin settings (`/settings/plugin/phabmine` page) has following settings:
     ```
     [3]
     ```
-
- - __Redmine->Phabricator project mapping__ 
+ - __Redmine->Phabricator project mapping__   
   This is JSON map of correspondance redmine projects slugs and phabricator projects slug.
   By default, phabricator project slug is uppercsed redmine project slug.
 
@@ -34,14 +33,13 @@ Plugin settings (`/settings/plugin/phabmine` page) has following settings:
     {'phabricator-plugin': 'PHABMINE'}
     ```
     
-If ypu don't need some of these settings, just leave them empty, that's fine. Otherwise, check JSON correctness.
+If you don't need some of these settings, just leave them empty, that's fine. Otherwise, _check JSON correctness_.
 If parameters will not be valid JSON strings, issue page will turn into 500 page. This behavior will be fixed soon.
 
 ## FAQ
- - __I don't want to clutter up my server with Phabricator Arcanist, PHP, etc. What shoud I do to run Phabmine?__
-
+ - __I don't want to clutter up my server with Phabricator Arcanist, PHP, etc. What shoud I do to run Phabmine?__   
    The point of step 3 of installation guide is to get `.arcrc` file - this is where Phabricator Conduit's certificate stored.
    You can create the file at any computer and then just copy it to server with Redmine.
- - __Is Phabmine stable? Can I safely use it?__
 
+ - __Is Phabmine stable? Can I safely use it?__   
    No! The plugin is under development. Production usage is strongly not recommended.
