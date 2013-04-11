@@ -3,3 +3,5 @@
 ruby-phabricator/*
 .arcrc
 *~
+*\#
+.\#*
