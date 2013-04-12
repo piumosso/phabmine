@@ -2,7 +2,7 @@ language: ruby
 notifications:
   email:
     - melevir@gmail.com
-script: bundle exec rspec spec
+script: bundle
 env:
   - DB=sqlite3
   - DB=sqlite3mem
