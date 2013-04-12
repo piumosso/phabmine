@@ -1,26 +1,20 @@
 language: ruby
-rvm:
-#  - 1.9.3
-  - 1.8.7
-#  - 1.9.2
-
-#Prevents installation of plugin's gemfile
-gemfile: non-existent-gemfile
-
-before_install:
-  # Git repo of the ChiliProject/Redmine
-  - export MAIN_REPO="git://github.com/redmine/redmine.git"
-  # Name of your plugin's repo
-  - export REPO_NAME=phabmine
-  # Plugin's name/directory
-  - export PLUGIN_NAME=phabmine
-  # Git tag for redmine version
-  - export REDMINE_GIT_TAG=1.4.1
-  # Arguments passed to bundle install on Redmine's Gemfile
-  - export TARGET_DIR="$HOME/redmine"
-before_script: "./test/ci/before_script.sh"
-script: "./test/ci/script.sh"
-
+notifications:
+  email:
+    - melevir@gmail.com
+script: bundle exec rspec spec
 env:
-  - "DB=mysql2 BUNDLE_WITHOUT=rmagick:mysql:postgres:sqlite"
-  - "DB=postgres BUNDLE_WITHOUT=rmagick:mysql:mysql2:sqlite"
+  - DB=sqlite3
+  - DB=sqlite3mem
+  - DB=postgresql
+  - DB=mysql
+rvm:
+  - 2.0.0
+  - 1.9.3
+  - rbx-19mode
+  - jruby-19mode
+  - 1.8.7
+  - rbx-18mode
+  - jruby-18mode
+gemfile:
+  - Gemfile
