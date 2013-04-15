@@ -13,8 +13,8 @@ rvm:
   - 1.9.3
 before_script:
   - git clone -b 1.4-stable git://github.com/redmine/redmine.git redmine
-  - ln -s ../.. redmine/plugins/phabmine
-script:
   - ls .
   - ls ..
+  - ln -s ../../.. redmine/plugins/phabmine
+script:
   - rake test
