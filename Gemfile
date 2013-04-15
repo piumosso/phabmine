@@ -16,3 +16,5 @@ end
 
 gem "rails", "=3.2.13"
 gem "activerecord-mysql-adapter"
+gem "ruby-openid", "~> 2.1.4", :require => "openid"
+gem "rack-openid"
