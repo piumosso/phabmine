@@ -12,7 +12,7 @@ rvm:
   - 2.0.0
   - 1.9.3
 before_script:
-  - git clone -b 1.4-stable git://github.com/redmine/redmine.git redmine
+  - git clone -b 2.2-stable git://github.com/redmine/redmine.git redmine
   - ls redmine
   - ln -s ../phabmine redmine/plugins/phabmine
   - ls redmine/plugins/
