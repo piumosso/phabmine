@@ -14,7 +14,7 @@ platforms :ruby do
   gem 'pg'
 end
 
-
+gem "rails", "=3.2.13"
 gem 'railties', '~> 3.0.17'
 gem 'activerecord', '~> 3.0.17'
 gem 'actionpack', '~> 3.0.17'
