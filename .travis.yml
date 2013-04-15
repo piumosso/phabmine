@@ -6,13 +6,15 @@ script: bundle
 env:
 #  - DB=sqlite3
 #  - DB=sqlite3mem
-$  - DB=postgresql
+#  - DB=postgresql
   - DB=mysql
 rvm:
   - 2.0.0
   - 1.9.3
 before_script:
   - git clone -b 1.4-stable git://github.com/redmine/redmine.git redmine
-  - ln -s ../../.. redmine/vendor/plugins/redmine_cmi
-  - rake test:prepare
-script: rake test
+  - ln -s ../.. redmine/plugins/phabmine
+script:
+  - ls .
+  - ls ..
+  - rake test
