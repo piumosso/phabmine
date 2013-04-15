@@ -1,5 +1,3 @@
-gem 'combustion', :github => 'pat/combustion'
-
 source 'https://rubygems.org'
 
 platforms :jruby do

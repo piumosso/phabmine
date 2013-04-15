@@ -11,8 +11,8 @@ $  - DB=postgresql
 rvm:
   - 2.0.0
   - 1.9.3
-#  - rbx-19mode
-#  - jruby-19mode
-#  - 1.8.7
-#  - rbx-18mode
-#  - jruby-18mode
+before_script:
+  - git clone -b 1.4-stable git://github.com/redmine/redmine.git redmine
+  - ln -s ../../.. redmine/vendor/plugins/redmine_cmi
+  - rake test:prepare
+script: rake test
