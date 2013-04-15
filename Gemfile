@@ -15,3 +15,4 @@ platforms :ruby do
 end
 
 gem "rails", "=3.2.13"
+get "activerecord-mysql-adapter"
