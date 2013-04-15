@@ -10,7 +10,7 @@ end
 
 platforms :ruby do
 #  gem 'sqlite3'
-  gem 'mysql2', '~> 0.3.0'
+  gem 'mysql2', '~> 0.3.11'
   gem 'pg'
 end
 
