@@ -4,7 +4,7 @@ task :default => [:test]
      
 desc 'Run tests'
 task :test do
-    exit false unless system %q{ruby test/phabmine_helpers_test.rb}
+    exit false unless system %q{ruby redmine/plugins/phabmine/test/phabmine_helpers_test.rb}
 end
 
 
