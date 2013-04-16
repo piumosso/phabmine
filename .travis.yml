@@ -18,7 +18,8 @@ before_script:
   - ls redmine
   - ls redmine/plugins
   - ls redmine/plugins/phabmine
-  - ls  redmine/plugins/phabmine/test
+  - ls redmine/plugins/phabmine/test
+  - cd redmine/plugins/phabmine
 script:
   - rake prepare
   - rake test
