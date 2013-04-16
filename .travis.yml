@@ -9,8 +9,8 @@ env:
 #  - DB=postgresql
   - DB=mysql
 rvm:
-  - 2.0.0
-#  - 1.9.3
+#  - 2.0.0
+  - 1.9.3
 before_script:
   - git clone -b 2.3-stable git://github.com/redmine/redmine.git redmine
   - ln -s ../phabmine redmine/plugins/phabmine
