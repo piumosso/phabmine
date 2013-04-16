@@ -4,10 +4,9 @@ notifications:
     - melevir@gmail.com
 script: bundle
 env:
-#  - DB=sqlite3
+  - DB=sqlite3
 #  - DB=sqlite3mem
 #  - DB=postgresql
-  - DB=mysql
 rvm:
 #  - 2.0.0
   - 1.9.3
@@ -15,11 +14,7 @@ before_script:
   - git clone -b 2.3-stable git://github.com/redmine/redmine.git redmine
   - git clone https://github.com/Melevir/ruby-phabricator.git
   - ln -s ../../ redmine/plugins/phabmine
-  - ls redmine
-  - ls redmine/plugins
-  - ls redmine/plugins/phabmine
-  - ls redmine/plugins/phabmine/test
-  - cd redmine/plugins/phabmine
+  - cd redmine/
 script:
-  - rake prepare
-  - rake test
+  - rake -f ../Rakefile prepare RAILS_ENV=test
+  - rake redmine:plugins:test PLUGIN=phabmine RAILS_ENV=test

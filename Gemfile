@@ -9,9 +9,9 @@ platforms :jruby do
 end
 
 platforms :ruby do
-#  gem 'sqlite3'
+  gem 'sqlite3'
   gem 'mysql2', '~> 0.3.11'
-  gem 'pg'
+#  gem 'pg'
 end
 
 gem "rails", "=3.2.13"
