@@ -15,7 +15,6 @@ before_script:
   - git clone https://github.com/Melevir/ruby-phabricator.git
   - ln -s ../../ redmine/plugins/phabmine
 script:
-  - cd ..
   - rake prepare RAILS_ENV=test
   - cd redmine/
   - rake redmine:plugins:test PLUGIN=phabmine RAILS_ENV=test
