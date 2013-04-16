@@ -18,7 +18,7 @@ task :prepare do
   end
 
   Dir.chdir(redmine) do
-    exit false unless system %q{rake db:drop db:create db:migrate db:migrate_plugins RAILS_ENV=test}
+    exit false unless system %q{rake db:create db:migrate db:migrate_plugins RAILS_ENV=test}
     exit false unless system %q{rake redmine:load_default_data REDMINE_LANG=en RAILS_ENV=test}
   end
 end

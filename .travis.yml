@@ -13,6 +13,7 @@ rvm:
   - 1.9.3
 before_script:
   - git clone -b 2.3-stable git://github.com/redmine/redmine.git redmine
+  - git clone https://github.com/Melevir/ruby-phabricator.git
   - ln -s ../../ redmine/plugins/phabmine
   - ls redmine
   - ls redmine/plugins
