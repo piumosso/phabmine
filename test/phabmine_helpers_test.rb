@@ -1,4 +1,4 @@
-require_relative 'phabmine/test/test_helper.rb'
+require_relative 'test_helper.rb'
 require_relative '../lib/phabricator_audits_hook_listener.rb'
 
 class PollsControllerTest < ActionController::TestCase
