@@ -1,4 +1,4 @@
-require_relative 'test_helper.rb'
+require File.expand_path("../test_helper", File.dirname(__FILE__))
 require_relative '../lib/phabricator_audits_hook_listener.rb'
 
 class PollsControllerTest < ActionController::TestCase
