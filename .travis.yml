@@ -14,6 +14,10 @@ rvm:
 before_script:
   - git clone -b 2.3-stable git://github.com/redmine/redmine.git redmine
   - ln -s ../phabmine redmine/plugins/phabmine
+  - ls redmine
+  - ls redmine/plugins
+  - ls redmine/plugins/phabmine
+  - ls  redmine/plugins/phabmine/test
 script:
   - rake prepare
   - rake test
