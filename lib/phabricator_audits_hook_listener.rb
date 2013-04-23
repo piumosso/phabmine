@@ -26,20 +26,28 @@ def get_phabricator_project_slug(redmine_phabricator_project_mapping, redmine_sl
   end
 end
 
+def parse_parameter(raw_param_value, default='')
+  if raw_param_value.nil? or raw_param_value.strip.empty?
+    return default
+  else
+    begin
+      param_value = JSON.parse raw_param_value
+    rescue JSON::ParserError
+      return default
+    end
+  end
+  return param_value
+end
 
 def get_plugin_settings
   settings_info = [
-    {'name'=> 'roles_to_hide_phabricator_url', 'default'=> '[]'},
-    {'name'=> 'redmine_phabricator_project_mapping', 'default'=> '{}'},
+    {'name'=> 'roles_to_hide_phabricator_url', 'default'=> []},
+    {'name'=> 'redmine_phabricator_project_mapping', 'default'=> {}},
   ]
   settings = {}
   settings_info.each{|param_info|
     raw_param_value = Setting.plugin_phabmine[param_info['name']]
-    if raw_param_value.nil? or raw_param_value.empty?
-      param_value = JSON.parse param_info['default']
-    else
-      param_value = JSON.parse raw_param_value
-    end
+    param_value = parse_parameter raw_param_value, param_info['default']
     settings[param_info['name']] = param_value
   }
   settings.default = ''
