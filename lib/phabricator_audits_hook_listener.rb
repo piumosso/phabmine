@@ -27,16 +27,11 @@ def get_phabricator_project_slug(redmine_phabricator_project_mapping, redmine_sl
 end
 
 def parse_parameter(raw_param_value, default='')
-  if raw_param_value.nil? or raw_param_value.strip.empty?
+  begin
+    return JSON.parse raw_param_value
+  rescue TypeError, JSON::ParserError
     return default
-  else
-    begin
-      param_value = JSON.parse raw_param_value
-    rescue JSON::ParserError
-      return default
-    end
   end
-  return param_value
 end
 
 def get_plugin_settings
