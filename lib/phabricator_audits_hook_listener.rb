@@ -3,13 +3,13 @@ require 'json'
 require_relative '../ruby-phabricator/shortcuts.rb'
 
 
-def get_changesets_statuses(changesets, project_sid)
+def get_changesets_statuses changesets, project_sid, auth_data
   # Ask Phabricator for statuses
   if changesets.empty?
     return {}
   else
     arcrc_path = ENV['PHABMINE_ARCRC_PATH'] || File.expand_path('./plugins/phabmine/.arcrc')
-    data = get_commit_status project_sid, changesets, arcrc_path
+    data = get_commit_status project_sid, changesets, arcrc_path, auth_data
 
     # uncomment for debug
 #        data = {'b84305a4' => {'status'=> 'accepted', 'url'=> 'example.com'}}
@@ -38,6 +38,9 @@ def get_plugin_settings
   settings_info = [
     {'name'=> 'roles_to_hide_phabricator_url', 'default'=> []},
     {'name'=> 'redmine_phabricator_project_mapping', 'default'=> {}},
+    {'name'=> 'phabricator_login', 'default'=> ''},
+    {'name'=> 'phabricator_auth_cookie', 'default'=> ''},
+    {'name'=> 'is_gitflow_project', 'default'=> 1},
   ]
   settings = {}
   settings_info.each{|param_info|
@@ -60,7 +63,11 @@ class PollsHookListener < Redmine::Hook::ViewListener
     user_roles = User.current.roles_for_project(context[:project]).map{|e| e.id}
     show_phabricator_url = (user_roles & roles_to_hide_phabricator_url).empty?
     project_sid = get_phabricator_project_slug(redmine_phabricator_project_mapping, issue.project.identifier)
-    commits_data = get_changesets_statuses(issue.changesets.map{|c| c.revision}, project_sid)
+    auth_data = {
+      'login' => settings['phabricator_login'][0],
+      'auth_cookie' => settings['phabricator_auth_cookie'][0],
+    }
+    commits_data = get_changesets_statuses(issue.changesets.map{|c| c.revision}, project_sid, auth_data)
     context[:controller].send(:render_to_string, {
       :partial => "/phabmine/statuses",
       :locals => {

@@ -7,9 +7,11 @@ $(function(){
         $rev_url.before('<span class=\"audit_info ' + value['status'] + '\"></span>');
         $rev_url.parent().siblings('.wiki').after('<div class="branches_info"></div>');
         $branches_info = $rev_url.parents('.changeset').find('.branches_info');
-        $.each(value['branches'], function(key, value){
-            $branches_info.append('<span class="branch">' + value + '</span>')
-        })
+        if('branches' in value){
+          $.each(value['branches'], function(key, value){
+              $branches_info.append('<span class="branch">' + value + '</span>')
+          })
+        }
         if(change_url && value['url']){
             $rev_url.attr('href', value['url']).attr('target', 'blank');
         };

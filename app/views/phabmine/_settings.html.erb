@@ -23,5 +23,34 @@
            </textarea>
     </tr>
 
+    <tr>
+      <th>
+          Phabricator login
+      </th>
+      <td><input id="phabricator_login" name="settings[phabricator_login]"
+               value="<%= settings['phabricator_login'] %>">
+           </input>
+    </tr>
+
+    <tr>
+      <th>
+          Phabricator auth cookie
+      </th>
+      <td>
+           <input id="phabricator_auth_cookie" name="settings[phabricator_auth_cookie]"
+               value="<%= settings['phabricator_auth_cookie'] %>">
+           </input>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+          Is gitflow project
+      </th>
+      <td>
+         <%= check_box_tag 'settings[is_gitflow_project]', 1, settings['is_gitflow_project'].to_i == 1 %>
+      </td>
+    </tr>
+
   </tbody>
 </table>
