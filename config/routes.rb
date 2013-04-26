@@ -1,2 +1,2 @@
-# Plugin's routes
-# See: http://guides.rubyonrails.org/routing.html
+
+get 'phabmine/:project_sid/commit/:sid/branches/', :controller => 'branches', :action => 'get'
