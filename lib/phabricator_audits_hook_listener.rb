@@ -36,16 +36,30 @@ end
 
 def get_plugin_settings
   settings_info = [
-    {'name'=> 'roles_to_hide_phabricator_url', 'default'=> []},
-    {'name'=> 'redmine_phabricator_project_mapping', 'default'=> {}},
-    {'name'=> 'phabricator_login', 'default'=> ''},
-    {'name'=> 'phabricator_auth_cookie', 'default'=> ''},
-    {'name'=> 'is_gitflow_project', 'default'=> 1},
+    {'name'=> 'roles_to_hide_phabricator_url', 'default'=> [], 'is_json' => true},
+    {'name'=> 'redmine_phabricator_project_mapping', 'default'=> {}, 'is_json' => true},
+    {'name'=> 'phabricator_login', 'default'=> '', 'is_json' => false},
+    {'name'=> 'phabricator_auth_cookie', 'default'=> '', 'is_json' => false},
+    {'name'=> 'is_gitflow_project', 'default'=> '', 'is_json' => false},
+    {'name'=> 'gitflow_instance_project_mapping', 'default'=> {}, 'is_json' => true},
+    {'name'=> 'show_tickets_branches', 'default'=> '', 'is_json' => false},
+    {'name'=> 'show_commits_branches', 'default'=> '', 'is_json' => false},
   ]
   settings = {}
   settings_info.each{|param_info|
     raw_param_value = Setting.plugin_phabmine[param_info['name']]
-    param_value = parse_parameter raw_param_value, param_info['default']
+    if raw_param_value.nil?
+      raw_param_value = ''
+    end
+    if param_info['is_json']
+      param_value = parse_parameter raw_param_value, param_info['default']
+    else
+      if raw_param_value.empty?
+        param_value = param_info['default']
+      else
+        param_value = raw_param_value
+      end
+    end
     settings[param_info['name']] = param_value
   }
   settings.default = ''
@@ -70,6 +84,8 @@ class PollsHookListener < Redmine::Hook::ViewListener
         :statuses => commits_data,
         :show_phabricator_url => show_phabricator_url,
         :project_sid => project_sid,
+        :show_tickets_branches => settings['show_tickets_branches'] == '1',
+        :show_commits_branches => settings['show_commits_branches'] == '1',
       }
     })
   end

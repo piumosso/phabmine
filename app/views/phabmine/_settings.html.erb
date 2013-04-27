@@ -28,7 +28,7 @@
           Phabricator login
       </th>
       <td><input id="phabricator_login" name="settings[phabricator_login]"
-               value="<%= settings['phabricator_login'] %>">
+n               value="<%= settings['phabricator_login'] %>">
            </input>
     </tr>
 
@@ -42,13 +42,50 @@
            </input>
       </td>
     </tr>
+  </tbody>
+</table>
+
+<h3>Branches settings</h3>
+
+<table>
+  <tbody>
 
     <tr>
       <th>
           Is gitflow project
+          <div class="settings__help-text">(instances urls shown instead of affected branches)</div>
       </th>
       <td>
          <%= check_box_tag 'settings[is_gitflow_project]', 1, settings['is_gitflow_project'].to_i == 1 %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+          gitflow branch -> instance name project mapping
+          <div class="settings__help-text">(instance urls for diffenrent gitflow branches)</div>
+      </th>
+      <td><textarea id="gitflow_instance_project_mapping" rows="5"
+             name="settings[gitflow_instance_project_mapping]" >
+               <%= settings['gitflow_instance_project_mapping'] %>
+           </textarea>
+    </tr>
+
+    <tr>
+      <th>
+          Show branches, affected by ticket
+      </th>
+      <td>
+         <%= check_box_tag 'settings[show_tickets_branches]', 1, settings['show_tickets_branches'].to_i == 1 %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+          Show branches, affected by each commit
+      </th>
+      <td>
+         <%= check_box_tag 'settings[show_commits_branches]', 1, settings['show_commits_branches'].to_i == 1 %>
       </td>
     </tr>
 

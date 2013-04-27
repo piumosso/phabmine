@@ -1,4 +1,10 @@
 <%= stylesheet_link_tag 'statuses', :plugin => 'phabmine' %>
 <%= javascript_include_tag 'statuses', :plugin => 'phabmine' %>
 
-<div id="phabricator_audit_info" style="display:none" data-statuses='<%= statuses %>' data-change-url='<%= show_phabricator_url =%>' data-project-sid='<%= project_sid %>'></div>
+<div id="phabricator_audit_info" style="display:none"
+    data-statuses='<%= statuses %>'
+    data-change-url='<%= show_phabricator_url =%>'
+    data-project-sid='<%= project_sid %>'
+    data-show-tickets-branches='<%= show_tickets_branches %>'
+    data-show-commits-branches='<%= show_commits_branches %>'
+></div>
