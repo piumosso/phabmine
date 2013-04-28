@@ -72,8 +72,8 @@ function get_and_show_final_branch(instance_branch_mapping, is_gitflow_project)
     var $issue_branches = $('#issue_branches');
     if (is_gitflow_project){
         var elder_branch = get_gitflow_elder_branch(unique),
-            instance_name = instance_branch_mapping[project_sid][elder_branch[0]];
-        $issue_branches.append('<a target="blank" class="elder_branch" href="' + instance_name + '">' + instance_name + '</a>');
+            instance_name = project_sid in instance_branch_mapping? instance_branch_mapping[project_sid][elder_branch[0]] || '': '';
+        $issue_branches.append('<div><a target="blank" class="elder_branch" href="http://' + instance_name + '">' + instance_name + '</a><span class="elder_branch_name">' + elder_branch[1] + '</span></div>');
     }
     else{
         $.each(unique, function(i, branch){
