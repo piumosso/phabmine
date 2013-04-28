@@ -17,6 +17,9 @@ class BranchesController < ApplicationController
 
     branches_info = get_commits_branches project_sid, [commit_id], arcrc_path, login, auth_cookie
 
+    # uncomment for debug
+#    branches_info = {commit_sid => ['dev', 'release/test']}
+
     respond_to do |format|
       format.html { render :json => branches_info[commit_sid].to_json }
     end

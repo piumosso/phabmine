@@ -12,7 +12,7 @@ def get_changesets_statuses changesets, project_sid
     data = get_commit_status project_sid, changesets, arcrc_path
 
     # uncomment for debug
-#        data = {'b84305a4' => {'status'=> 'accepted', 'url'=> 'example.com'}}
+#        data = {'6d1a9fbe' => {'status'=> 'accepted', 'url'=> 'example.com'}}
   end
   return data.to_json.html_safe
 end
@@ -86,6 +86,8 @@ class PollsHookListener < Redmine::Hook::ViewListener
         :project_sid => project_sid,
         :show_tickets_branches => settings['show_tickets_branches'] == '1',
         :show_commits_branches => settings['show_commits_branches'] == '1',
+        :is_gitflow_project => settings['is_gitflow_project'] == '1',
+        :instance_branch_mapping => settings['gitflow_instance_project_mapping'].to_json,
       }
     })
   end
