@@ -36,14 +36,17 @@
 }
 
 .elder_branch {
-    margin-right: 20px;
     font-size: large;
-}
-
-.elder_branch_name {
-    font-size: smaller;
 }
 
 .settings_subheader {
     margin-top: 30px;
+}
+
+#issue_branches {
+    margin-bottom: 20px;
+}
+
+#branches_header {
+    margin-bottom: 0;
 }

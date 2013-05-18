@@ -40,16 +40,12 @@ $(function(){
             projectSid = $info.data('projectSid'),
             $issueBranches,
             elderBranch,
-            instanceName;
+            instanceName,
+            $issueBranches = $('<div id="issue_branches"></div>');
 
-       $('#issue-changesets')
-            .prepend('<h3 id="branches_header">' + headerText + '</h3>');
+        $('#issue-changesets').prepend($issueBranches);
+        $issueBranches.append('<h3 id="branches_header">' + headerText + '</h3>');
 
-       $('#branches_header')
-            .next()
-            .before('<div id="issue_branches"></div>');
-
-        $issueBranches = $('#issue_branches');
         if (isGitflowProject){
             elderBranch = getGitflowElderBranch(unique);
             if(projectSid in instanceBranchMapping){
@@ -61,8 +57,9 @@ $(function(){
             $issueBranches
                 .append(
                     '<div>' +
-                        '<a target="_blank" class="elder_branch" href="http://' + instanceName + '">' + instanceName + '</a>' +
-                        '<span class="elder_branch_name">' + elderBranch[1] + '</span>' +
+                        'Test instance: <a target="_blank" class="elder_branch" href="http://' + instanceName + '">' + instanceName + '</a>' +
+                    '</div><div>' +                        
+                        'Branch: <span class="elder_branch_name">' + elderBranch[1] + '</span>' +
                     '</div>'
             );
         }

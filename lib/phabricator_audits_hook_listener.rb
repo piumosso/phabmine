@@ -12,7 +12,10 @@ def get_changesets_statuses changesets, project_sid
     data = get_commit_status project_sid, changesets, arcrc_path
 
     # uncomment for debug
-#        data = {'6d1a9fbe' => {'status'=> 'accepted', 'url'=> 'example.com'}}
+#    data = {
+#          '6d1a9fbe' => {'status'=> 'accepted', 'url'=> 'example.com'},
+#          '810cd809' => {'status'=> 'accepted', 'url'=> 'example.com'},
+#    }
   end
   return data.to_json.html_safe
 end
