@@ -34,32 +34,40 @@ $(function(){
     };
 
     var getAndShowFinalBranch = function(instanceBranchMapping, isGitflowProject){
-        var headerText = isGitflowProject? 'Instance' : 'Affected branches',
+        var headerText = isGitflowProject? 'Summary' : 'Affected branches',
             $info = $('#phabricator_audit_info'),
+            $issueBranches = $('<div id="issue_branches"></div>'),
             unique = $.unique($info.data('branches')),
             projectSid = $info.data('projectSid'),
             $issueBranches,
             elderBranch,
             instanceName,
-            $issueBranches = $('<div id="issue_branches"></div>');
+            branch_url;
+        
 
         $('#issue-changesets').prepend($issueBranches);
         $issueBranches.append('<h3 id="branches_header">' + headerText + '</h3>');
 
         if (isGitflowProject){
             elderBranch = getGitflowElderBranch(unique);
+            branch_url = $info.data('baseRepositoryUrl') + elderBranch[1] + '/';
             if(projectSid in instanceBranchMapping){
                 instanceName = instanceBranchMapping[projectSid][elderBranch[0]] || '';
             }
             else{
                 instanceName = '';
             }
-            $issueBranches
-                .append(
-                    '<div>' +
-                        'Test instance: <a target="_blank" class="elder_branch" href="http://' + instanceName + '">' + instanceName + '</a>' +
-                    '</div><div>' +                        
-                        'Branch: <span class="elder_branch_name">' + elderBranch[1] + '</span>' +
+            
+            if(instanceName) {
+                $issueBranches.append(
+                        '<div>' +
+                            'Test instance: <a target="_blank" class="elder_branch" href="http://' + instanceName + '">' + instanceName + '</a>' +
+                        '</div>'
+                );
+            }
+            $issueBranches.append(
+                    '<div>' +                        
+                        'Branch: <a target="_blank" class="elder_branch_name" href="' + branch_url + '">' + elderBranch[1] + '</a>' +
                     '</div>'
             );
         }

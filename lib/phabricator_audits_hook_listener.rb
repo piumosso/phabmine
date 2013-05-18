@@ -3,12 +3,16 @@ require 'json'
 require_relative '../ruby-phabricator/shortcuts.rb'
 
 
+def get_arcrc_path
+    return ENV['PHABMINE_ARCRC_PATH'] || File.expand_path('./plugins/phabmine/.arcrc')
+end
+
 def get_changesets_statuses changesets, project_sid
   # Ask Phabricator for statuses
   if changesets.empty?
     return {}
   else
-    arcrc_path = ENV['PHABMINE_ARCRC_PATH'] || File.expand_path('./plugins/phabmine/.arcrc')
+    arcrc_path = get_arcrc_path
     data = get_commit_status project_sid, changesets, arcrc_path
 
     # uncomment for debug
@@ -19,7 +23,6 @@ def get_changesets_statuses changesets, project_sid
   end
   return data.to_json.html_safe
 end
-
 
 def get_phabricator_project_slug(redmine_phabricator_project_mapping, redmine_slug)
   if redmine_phabricator_project_mapping.include? redmine_slug
@@ -69,7 +72,6 @@ def get_plugin_settings
   return settings
 end
 
-
 class PollsHookListener < Redmine::Hook::ViewListener
   def view_issues_show_details_bottom(context={} )
     settings = get_plugin_settings
@@ -81,12 +83,14 @@ class PollsHookListener < Redmine::Hook::ViewListener
     show_phabricator_url = (user_roles & roles_to_hide_phabricator_url).empty?
     project_sid = get_phabricator_project_slug(redmine_phabricator_project_mapping, issue.project.identifier)
     commits_data = get_changesets_statuses(issue.changesets.map{|c| c.revision}, project_sid)
+    base_repository_url = get_base_repositiry_url project_sid, get_arcrc_path
     context[:controller].send(:render_to_string, {
       :partial => "/phabmine/statuses",
       :locals => {
         :statuses => commits_data,
         :show_phabricator_url => show_phabricator_url,
         :project_sid => project_sid,
+        :base_repository_url => base_repository_url,
         :show_tickets_branches => settings['show_tickets_branches'] == '1',
         :show_commits_branches => settings['show_commits_branches'] == '1',
         :is_gitflow_project => settings['is_gitflow_project'] == '1',
