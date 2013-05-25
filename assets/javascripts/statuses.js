@@ -50,33 +50,43 @@ $(function(){
 
         if (isGitflowProject){
             elderBranch = getGitflowElderBranch(unique);
-            branch_url = $info.data('baseRepositoryUrl') + elderBranch[1] + '/';
-            if(projectSid in instanceBranchMapping){
-                instanceName = instanceBranchMapping[projectSid][elderBranch[0]] || '';
+            console.log(elderBranch);
+            if (elderBranch[0] == undefined){
+                showIssueBranches($issueBranches, unique);
             }
             else{
-                instanceName = '';
-            }
-            
-            if(instanceName) {
+                branch_url = $info.data('baseRepositoryUrl') + elderBranch[1] + '/';
+                if(projectSid in instanceBranchMapping){
+                    instanceName = instanceBranchMapping[projectSid][elderBranch[0]] || '';
+                }
+                else{
+                    instanceName = '';
+                }
+
+                if(instanceName) {
+                    $issueBranches.append(
+                            '<div>' +
+                                'Test instance: <a target="_blank" class="elder_branch" href="http://' + instanceName + '">' + instanceName + '</a>' +
+                            '</div>'
+                    );
+                }
                 $issueBranches.append(
-                        '<div>' +
-                            'Test instance: <a target="_blank" class="elder_branch" href="http://' + instanceName + '">' + instanceName + '</a>' +
+                        '<div>' +                        
+                            'Branch: <a target="_blank" class="elder_branch_name" href="' + branch_url + '">' + elderBranch[1] + '</a>' +
                         '</div>'
                 );
             }
-            $issueBranches.append(
-                    '<div>' +                        
-                        'Branch: <a target="_blank" class="elder_branch_name" href="' + branch_url + '">' + elderBranch[1] + '</a>' +
-                    '</div>'
-            );
         }
         else{
-            $.each(unique, function(i, branch){
-                $issueBranches.append('<span class="branch">' + branch + '</span>')
-            })
+            showIssueBranches($issueBranches, unique);
         }
     };
+
+    var showIssueBranches = function($summary_element, branches){
+        $.each(branches, function(i, branch){
+            $summary_element.append('<span class="branch">' + branch + '</span>')
+        })
+    }
 
     var getGitflowElderBranch = function(branches){
         var elderBranch,
