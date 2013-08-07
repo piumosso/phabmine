@@ -36,14 +36,19 @@ $(function(){
     var getAndShowFinalBranch = function(instanceBranchMapping, isGitflowProject){
         var headerText = isGitflowProject? 'Summary' : 'Affected branches',
             $info = $('#phabricator_audit_info'),
-            $issueBranches = $('<div id="issue_branches"></div>'),
+            $issueBranches = $('<div id="issue_branches"></div>');
+
+        if (!$info.data('branches')) {
+            return;
+        }
+
+        var
             unique = $.unique($info.data('branches')),
             projectSid = $info.data('projectSid'),
-            $issueBranches,
             elderBranch,
             instanceName,
             branch_url;
-        
+
 
         $('#issue-changesets').prepend($issueBranches);
         $issueBranches.append('<h3 id="branches_header">' + headerText + '</h3>');
